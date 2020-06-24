@@ -23,8 +23,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    #category = serializers.StringRelatedField()
+    category = serializers.StringRelatedField()
     #author = AuthorSerializer(many=True, read_only=True)
+    author = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Book

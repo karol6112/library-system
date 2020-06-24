@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from .serializers import RegisterUserSerializer, UserSerializer, UserProfileSerializer
 from .models import User
 

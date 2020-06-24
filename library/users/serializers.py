@@ -58,4 +58,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'id_number',
+            'is_active',
         )
