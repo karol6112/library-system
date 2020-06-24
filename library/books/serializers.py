@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Author, Category
+from .models import Author, Category, Book
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -19,4 +19,21 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'category_name',
+        )
+
+
+class BookSerializer(serializers.ModelSerializer):
+    #category = serializers.StringRelatedField()
+    #author = AuthorSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Book
+        fields = (
+            'id',
+            'title',
+            'category',
+            'author',
+            'year',
+            'isbn',
+            'amount',
         )
