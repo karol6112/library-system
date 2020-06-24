@@ -1,7 +1,7 @@
 import datetime
 
 from django.db import models
-
+from users.models import User
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
@@ -30,3 +30,14 @@ class Book(models.Model):
     isbn = models.CharField(max_length=13, unique=True)
     amount = models.IntegerField(default=1)
     category = models.ForeignKey(Category, blank=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.title
+
+
+class Order(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.PROTECT, blank=False)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=False)
+    date_start = models.DateTimeField(auto_now=True)
+    date_end = models.DateTimeField(default=None, blank=-True, null=True)
+    active = models.BooleanField(default=True, auto_created=True)
