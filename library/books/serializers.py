@@ -40,12 +40,26 @@ class BookSerializer(serializers.ModelSerializer):
         )
 
 
-class OrderSerializer(serializers.ModelSerializer):
-
+class AddOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = (
             'book',
         )
 
+
+class OrderSerializer(serializers.ModelSerializer):
+    book = serializers.StringRelatedField(read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = (
+            'id',
+            'book',
+            'user',
+            'date_start',
+            'date_end',
+            'active',
+        )
 

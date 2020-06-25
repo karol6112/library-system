@@ -8,9 +8,10 @@ router = routers.DefaultRouter()
 router.register(r'author', AuthorViewSet, basename='author')
 router.register(r'category', CategoryViewSet, basename='category')
 router.register(r'books', BookViewSet, basename='book')
+router.register(r'orders', OrderViewSet, basename='order')
 
 urlpatterns = [
-    path('orders/', OrderViewSet.as_view(), name='order'),
+    #path('orders/my_orders/', OrderView.as_view(), name='my_order'),
     path('api-auth/', include('rest_framework.urls')),
     path('', include(router.urls)),
 ]

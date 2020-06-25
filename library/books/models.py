@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from users.models import User
 
+
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
 
@@ -41,3 +42,6 @@ class Order(models.Model):
     date_start = models.DateTimeField(auto_now=True)
     date_end = models.DateTimeField(default=None, blank=-True, null=True)
     active = models.BooleanField(default=True, auto_created=True)
+
+    def __str__(self):
+        return f'pk: {self.pk}'
