@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Author, Category, Book
+from .models import Author, Category, Book, Order
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField()
-    #author = AuthorSerializer(many=True, read_only=True)
+    # author = AuthorSerializer(many=True, read_only=True)
     author = serializers.StringRelatedField(many=True)
 
     class Meta:
@@ -38,3 +38,28 @@ class BookSerializer(serializers.ModelSerializer):
             'isbn',
             'amount',
         )
+
+
+class AddOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = (
+            'book',
+        )
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    book = serializers.StringRelatedField(read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = (
+            'id',
+            'book',
+            'user',
+            'date_start',
+            'date_end',
+            'active',
+        )
+
