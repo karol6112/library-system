@@ -23,9 +23,21 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
+    # category = serializers.StringRelatedField()
     # author = AuthorSerializer(many=True, read_only=True)
-    author = serializers.StringRelatedField(many=True)
+    # author = serializers.StringRelatedField(many=True)
+
+    def validate(self, data):
+        try:
+            isbn = int(data['isbn'])
+        except:
+            raise serializers.ValidationError('ISBN number contains only digits')
+
+        isbn = str(isbn)
+        if len(isbn) == 10 or len(isbn) == 13:
+            return data
+        else:
+            raise serializers.ValidationError('ISBN number must have 10 or 13 digits')
 
     class Meta:
         model = Book
@@ -62,4 +74,3 @@ class OrderSerializer(serializers.ModelSerializer):
             'date_end',
             'active',
         )
-
