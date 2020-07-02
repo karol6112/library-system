@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
 from .views import RegisterUserView, UserView, UserProfileView
 
+app_name = 'users'
 
 urlpatterns = [
     path('register/', RegisterUserView.as_view(), name='register'),

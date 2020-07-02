@@ -11,7 +11,6 @@ router.register(r'books', BookViewSet, basename='book')
 router.register(r'orders', OrderViewSet, basename='order')
 
 urlpatterns = [
-    #path('orders/my_orders/', OrderView.as_view(), name='my_order'),
     path('api-auth/', include('rest_framework.urls')),
     path('', include(router.urls)),
 ]

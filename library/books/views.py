@@ -1,11 +1,9 @@
-from django.shortcuts import render
 import datetime
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions, filters, generics
 from rest_framework.decorators import action
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
-
 from .serializers import AuthorSerializer, CategorySerializer, BookSerializer, OrderSerializer
 from .models import Author, Category, Book, Order
 from .permissions import IsAdminOrReadOnly
@@ -41,7 +39,12 @@ class BookViewSet(viewsets.ModelViewSet):
         book = self.get_object()
         user = self.request.user
 
-        orders = Order.objects.filter(user=user).filter(book=book)
+        orders = Order.objects.filter(book=book).filter(active=True)
+
+        if len(orders) == book.amount:
+            raise APIException("This book in not available")
+
+        orders = orders.filter(user=user)
 
         if len(orders):
             raise APIException("You have already borrowed this book!")
