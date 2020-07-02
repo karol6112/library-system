@@ -5,6 +5,7 @@
 * [Requirements](#requirements)
 * [Install](#install)
 * [Connect to database](#connect_to)
+* [Documentation](#documentation)
 
 ## Requirements
 * Python3
@@ -36,4 +37,6 @@ $: pip install -r requirements.txt
 $: python manage.py makemigrations
 ```
 
-* In file add data necessary to connect to PostgreSQL database.
+## Documentation
+
+* The Rest Framework Documentation is available at http://127.0.0.1:8000/
