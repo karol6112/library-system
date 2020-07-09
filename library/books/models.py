@@ -27,21 +27,21 @@ class Book(models.Model):
 
     title = models.CharField(max_length=100, blank=False)
     author = models.ManyToManyField(Author)  # some books have more than one authors
+    category = models.ForeignKey(Category, blank=True, on_delete=models.PROTECT)
     year = models.IntegerField(choices=YEAR, blank=True)
     isbn = models.CharField(max_length=13, unique=True)
     amount = models.IntegerField(default=1)
-    category = models.ForeignKey(Category, blank=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
 
 
 class Order(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.PROTECT, blank=False)
-    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=False)
+    book = models.ForeignKey(Book, on_delete=models.PROTECT, blank=False, related_name='order_book')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=False, related_name='order_user')
     date_start = models.DateTimeField(auto_now=True)
     date_end = models.DateTimeField(default=None, blank=-True, null=True)
     active = models.BooleanField(default=True, auto_created=True)
 
     def __str__(self):
-        return f'pk: {self.pk}'
+        return f'pk: {self.pk}\nbook: {self.book}\nuser: {self.user}'

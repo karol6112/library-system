@@ -38,15 +38,15 @@ class BookViewSet(viewsets.ModelViewSet):
     def borrow(self, request, **kwargs):
         book = self.get_object()
         user = self.request.user
-
-        orders = Order.objects.filter(book=book).filter(active=True)
+        orders = book.order_book.filter(active=True)
+        # orders = Order.objects.filter(book=book).filter(active=True)
 
         if len(orders) == book.amount:
             raise APIException("This book in not available")
 
-        orders = orders.filter(user=user)
+        user_orders = orders.filter(user=user)
 
-        if len(orders):
+        if len(user_orders):
             raise APIException("You have already borrowed this book!")
         else:
             order = Order()
